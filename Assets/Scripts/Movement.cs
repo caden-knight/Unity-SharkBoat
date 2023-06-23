@@ -15,14 +15,16 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float vertical = Input.GetAxis("Vertical") * boatSpeed;
-        float horizontal = Input.GetAxis("Horizontal") * boatSpeed;
+        MoveBoat();
+    }
 
-        vertical *= Time.deltaTime;
-        horizontal *= Time.deltaTime;
+    void MoveBoat()
+    {
+        float vertical = Input.GetAxis("Vertical");
+        float horizontal = Input.GetAxis("Horizontal");
 
-        // inverted the two axis' and the speed because of the nature of the model I used
-        transform.Translate(Vector3.right * -vertical);
-        transform.Translate(Vector3.forward * horizontal);
+        Vector3 movementDirection = new Vector3(horizontal, 0, vertical) * boatSpeed;
+
+        transform.Translate(movementDirection * Time.deltaTime, Space.World);
     }
 }
